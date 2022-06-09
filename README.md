@@ -6,6 +6,14 @@ A React-Native module to enable biometric login and securely store a user's cred
 
 ```sh
 npm install react-native-biometric-login
+cd ios && pod install && cd ..
+```
+
+or
+
+```sh
+yarn add react-native-biometric-login
+cd ios && pod install && cd ..
 ```
 
 ## Usage
