@@ -1,6 +1,6 @@
 {
   "name": "react-native-biometric-login",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React-Native module to enable biometric login and securely store user credentials using native apis.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -46,7 +46,10 @@
     "authentication",
     "auth"
   ],
-  "repository": "https://github.com/thang2162/react-native-biometric-login",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thang2162/react-native-biometric-login.git"
+  },
   "author": "Tone T. Thansongchareon <netguy87@gmail.com> (https://github.com/thang2162)",
   "license": "MIT",
   "bugs": {
@@ -153,5 +156,8 @@
         }
       ]
     ]
+  },
+  "directories": {
+    "example": "example"
   }
 }

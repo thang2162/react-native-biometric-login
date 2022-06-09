@@ -41,16 +41,16 @@ const result = await BiometricIsAvailable();
 1. BiometricIsAvailable() - Checks if a biometric authentication method is available on the device.
    Returns: Promise that resolves with true or false
 
-2. BasicBiometricAuth(title, description) - Opens a basic biometric login prompt.
+2. BasicBiometricAuth(title: string, description: string) - Opens a basic biometric login prompt.
    Returns: Promise that resolves with true if success or rejects with message if fail.
 
-3. LoginBiometricAuth(title, description) - Opens a biometric login prompt that returns stored user credentials.
+3. LoginBiometricAuth(title: string, description: string) - Opens a biometric login prompt that returns stored user credentials.
    Returns: Promise that resolves with object {success: true, username: "username", password: "password"} if success or rejects with message if fail.
 
-4. SetUser(username, password) - Save the user's credentials.
+4. SetUser(username: string, password: string) - Save the user's credentials.
    Returns: Promise that resolves with object {success: true, message: response_text} if success or rejects with message if fail.
 
-5. UpdateUser(username, password) - Update the user's credentials.
+5. UpdateUser(username: string, password: string) - Update the user's credentials.
    Returns: Promise that resolves with object {success: true, message: response_text} if success or rejects with message if fail.
 
 6. GetUser() - Gets the user's credentials.
