@@ -8,7 +8,9 @@ import androidx.security.crypto.MasterKeys
 class CredentialStore {
 
   fun SaveUserCreds(username: String, password: String, context: Context) {
-    val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+    val masterKeyAlias = new MasterKey.Builder(context)
+     .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+     .build();
 
     val sharedPreferences = EncryptedSharedPreferences.create(
       "CredentialStore",
@@ -26,7 +28,9 @@ class CredentialStore {
   }
 
   fun GetUserCreds(context: Context): Array<String> {
-    val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+    val masterKeyAlias = new MasterKey.Builder(context)
+     .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+     .build();
 
     val sharedPreferences = EncryptedSharedPreferences.create(
       "CredentialStore",
@@ -43,7 +47,9 @@ class CredentialStore {
   }
 
   fun DeleteUserCreds(context: Context) {
-    val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+    val masterKeyAlias = new MasterKey.Builder(context)
+     .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+     .build();
 
     val sharedPreferences = EncryptedSharedPreferences.create(
       "CredentialStore",
