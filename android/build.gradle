@@ -127,5 +127,5 @@ dependencies {
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation "androidx.biometric:biometric-ktx:1.2.0-alpha04"
-  implementation "androidx.security:security-crypto:1.0.0-alpha02"
+  implementation "androidx.security:security-crypto:1.1.0-alpha06"
 }

@@ -2,20 +2,20 @@ package com.reactnativebiometriclogin
 
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
+import androidx.security.crypto.MasterKey
 
 
 class CredentialStore {
 
   fun SaveUserCreds(username: String, password: String, context: Context) {
-    val masterKeyAlias = new MasterKey.Builder(context)
-     .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-     .build();
+    val masterKeyAlias = MasterKey.Builder(context)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
 
     val sharedPreferences = EncryptedSharedPreferences.create(
+            context,
       "CredentialStore",
       masterKeyAlias,
-      context,
       EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
       EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
@@ -28,14 +28,14 @@ class CredentialStore {
   }
 
   fun GetUserCreds(context: Context): Array<String> {
-    val masterKeyAlias = new MasterKey.Builder(context)
-     .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-     .build();
+    val masterKeyAlias = MasterKey.Builder(context)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
 
     val sharedPreferences = EncryptedSharedPreferences.create(
+            context,
       "CredentialStore",
       masterKeyAlias,
-      context,
       EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
       EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
@@ -47,14 +47,14 @@ class CredentialStore {
   }
 
   fun DeleteUserCreds(context: Context) {
-    val masterKeyAlias = new MasterKey.Builder(context)
-     .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-     .build();
+    val masterKeyAlias = MasterKey.Builder(context)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
 
     val sharedPreferences = EncryptedSharedPreferences.create(
+            context,
       "CredentialStore",
       masterKeyAlias,
-      context,
       EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
       EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
