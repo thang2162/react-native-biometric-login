@@ -1,6 +1,6 @@
 {
   "name": "react-native-biometric-login",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A React-Native module to enable biometric login and securely store user credentials using native apis.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

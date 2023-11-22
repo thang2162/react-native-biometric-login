@@ -139,7 +139,7 @@ class BiometricLogin: NSObject {
           let formattedData: NSDictionary = [
               "success" : NSNumber(value: true),
               "username" : data[0],
-              "helloString" : data[1]
+              "password" : data[1]
           ]
           resolve(formattedData)
       } else {
