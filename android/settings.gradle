@@ -1,0 +1,20 @@
+pluginManagement {
+  repositories {
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+  }
+}
+
+dependencyResolutionManagement {
+  repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
+  repositories {
+    google()
+    mavenCentral()
+  }
+}
+
+rootProject.name = 'BiometricLogin'
+
+// Enable React Native plugin
+apply from: file("../node_modules/@react-native/gradle-plugin/settings.gradle")

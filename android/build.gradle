@@ -18,8 +18,14 @@ buildscript {
 
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
-
 apply plugin: "com.facebook.react"
+
+react {
+  // Enable new architecture
+  newArchEnabled = true
+  // Enable codegen
+  codegenEnabled = true
+}
 
 def getExtOrIntegerDefault(name) {
   return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["BiometricLogin_" + name]).toInteger()
@@ -28,11 +34,11 @@ def getExtOrIntegerDefault(name) {
 android {
   namespace "com.biometriclogin"
 
-  compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
+  compileSdk getExtOrIntegerDefault("compileSdkVersion")
 
   defaultConfig {
-    minSdkVersion getExtOrIntegerDefault("minSdkVersion")
-    targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
+    minSdk getExtOrIntegerDefault("minSdkVersion")
+    targetSdk getExtOrIntegerDefault("targetSdkVersion")
   }
 
   buildFeatures {
@@ -57,7 +63,8 @@ android {
   sourceSets {
     main {
       java.srcDirs += [
-        "src/main/java"
+        "src/main/java",
+        "generated/java"
       ]
     }
   }
@@ -83,3 +90,5 @@ dependencies {
   // For JSON parsing
   implementation "com.google.code.gson:gson:2.10.1"
 }
+
+

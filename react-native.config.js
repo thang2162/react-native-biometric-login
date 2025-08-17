@@ -1,13 +1,9 @@
 module.exports = {
-  dependencies: {
-    'react-native-biometric-login': {
-      platforms: {
-        android: {
-          sourceDir: './android',
-        },
-        ios: {
-          podspecPath: './BiometricLogin.podspec',
-        },
+  dependency: {
+    platforms: {
+      android: {
+        sourceDir: 'android',
+        packageImportPath: 'import com.biometriclogin.BiometricLoginPackage;',
       },
     },
   },

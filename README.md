@@ -25,9 +25,17 @@ yarn add react-native-biometric-login
 npm install react-native-biometric-login
 ```
 
+### ⚠️ Important: Codegen Configuration
+
+This library uses React Native's new architecture and requires proper codegen configuration in your consuming app. If you encounter build errors related to missing generated sources, please see the [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) guide.
+
+**Quick fix**: Ensure your consuming app has `codegenEnabled = true` in the React configuration.
+
+**💡 Pro tip**: Run `yarn check-setup` (if you're in this repo) or use the setup check script to verify your configuration. For consuming apps, you can also run `npx react-native-biometric-login verify-setup` to check your setup.
+
 **📖 For detailed integration instructions and troubleshooting, see [INTEGRATION.md](./INTEGRATION.md)**
 
-**🚨 Having build issues when installing via npm? Check [QUICK_FIX.md](./QUICK_FIX.md) for the 3-step solution!**
+**🚨 Having build issues when installing via npm? Check [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) for comprehensive solutions!**
 
 ### iOS Setup
 
