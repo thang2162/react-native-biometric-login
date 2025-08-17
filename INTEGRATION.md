@@ -26,6 +26,8 @@ pod install
 cd ..
 ```
 
+**💡 Note**: If you encounter Ruby/bundler issues when running `pod install`, you may need to run `bundle install` first to install the required Ruby gems for CocoaPods.
+
 ## Android Configuration
 
 ### 1. Update android/build.gradle

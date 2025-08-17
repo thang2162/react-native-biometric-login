@@ -54,6 +54,8 @@ cd ios && pod install
 
 **Note**: The `NSFaceIDUsageDescription` key is required for both Face ID and Touch ID authentication. Even if your app only uses Touch ID, you must include this key with a meaningful description of why your app needs biometric authentication.
 
+**💡 Pro tip**: If you're building the example app and encounter Ruby/bundler issues, you may need to run `bundle install` first to install the required Ruby gems for CocoaPods.
+
 ### Android Setup
 
 For Android, ensure you have the following permissions in your `AndroidManifest.xml`:
@@ -278,6 +280,8 @@ cd .. && yarn ios
 # For Android
 yarn android
 ```
+
+**💡 iOS Build Note**: If you encounter Ruby/bundler issues when building the iOS example, run `bundle install` first to install the required Ruby gems for CocoaPods.
 
 ## Architecture
 

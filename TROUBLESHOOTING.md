@@ -109,6 +109,14 @@ pod install
 cd ..
 ```
 
+**💡 Note**: If you encounter Ruby/bundler issues when running `pod install`, run `bundle install` first:
+```bash
+bundle install
+cd ios
+pod install
+cd ..
+```
+
 #### Solution 2: Clean Build
 ```bash
 cd ios

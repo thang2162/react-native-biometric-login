@@ -1,5 +1,5 @@
 PODS:
-  - BiometricLogin (2.0.3):
+  - BiometricLogin (2.0.21):
     - boost
     - DoubleConversion
     - fast_float
@@ -2572,7 +2572,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  BiometricLogin: bf990805cb953ec5799785f877d9896e04ac6291
+  BiometricLogin: 43fbdfb8021fcd3064ba129fd5d8983daadf20e3
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   fast_float: b32c788ed9c6a8c584d114d0047beda9664e7cc6
@@ -2649,4 +2649,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 52d6ef2d2b174af7f413ee95ed5d1ce3e7f5dab2
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.15.2
