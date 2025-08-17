@@ -161,15 +161,27 @@ export default function App() {
 
         <View style={styles.statusContainer}>
           <Text style={styles.statusLabel}>Biometric Status:</Text>
-          <Text style={[styles.statusText, { color: isAvailable ? 'green' : 'red' }]}>
-            {isAvailable === null ? 'Checking...' : isAvailable ? 'Available' : 'Not Available'}
+          <Text
+            style={[
+              styles.statusText,
+              // eslint-disable-next-line react-native/no-inline-styles
+              { color: isAvailable ? 'green' : 'red' },
+            ]}
+          >
+            {isAvailable === null
+              ? 'Checking...'
+              : isAvailable
+                ? 'Available'
+                : 'Not Available'}
           </Text>
         </View>
 
         {currentUser && (
           <View style={styles.userContainer}>
             <Text style={styles.userLabel}>Current User:</Text>
-            <Text style={styles.userText}>{JSON.stringify(currentUser, null, 2)}</Text>
+            <Text style={styles.userText}>
+              {JSON.stringify(currentUser, null, 2)}
+            </Text>
           </View>
         )}
 
