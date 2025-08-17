@@ -1,6 +1,6 @@
 {
   "name": "react-native-biometric-login",
-  "version": "2.0.20",
+  "version": "2.0.21",
   "description": "A React-Native module to enable biometric login and securely store a user's credentials using native apis.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
@@ -159,7 +159,7 @@
     "jsSrcsDir": "src",
               "outputDir": {
             "ios": "ios/generated",
-            "android": "android/generated"
+            "android": "android/build/generated/source/codegen"
           },
     "android": {
       "javaPackageName": "com.biometriclogin",
