@@ -25,6 +25,10 @@ yarn add react-native-biometric-login
 npm install react-native-biometric-login
 ```
 
+**📖 For detailed integration instructions and troubleshooting, see [INTEGRATION.md](./INTEGRATION.md)**
+
+**🚨 Having build issues when installing via npm? Check [QUICK_FIX.md](./QUICK_FIX.md) for the 3-step solution!**
+
 ### iOS Setup
 
 For iOS, you'll need to:
@@ -133,6 +137,87 @@ const login = async () => {
 ### Complete Example
 
 See the [example app](./example/src/App.tsx) for a full implementation demonstrating all features.
+
+## Troubleshooting
+
+### Common Build Issues
+
+#### Android Build Fails with "Unresolved reference 'NativeBiometricLoginSpec'"
+
+This error occurs when the React Native codegen doesn't properly generate the required spec files. Here's how to fix it:
+
+1. **Clean and rebuild**:
+   ```sh
+   cd android
+   ./gradlew clean
+   cd ..
+   yarn android
+   ```
+
+2. **Ensure proper codegen setup** in your consuming app's `android/settings.gradle`:
+   ```gradle
+   apply from: file("../node_modules/@react-native/gradle-plugin/settings.gradle")
+   ```
+
+3. **Check your app's `android/build.gradle`** has the correct React Native version:
+   ```gradle
+   buildscript {
+       ext {
+           reactNativeVersion = "0.81.0" // Use the version compatible with this library
+       }
+   }
+   ```
+
+4. **Verify your app's `android/app/build.gradle`** includes:
+   ```gradle
+   apply from: file("../../node_modules/@react-native/gradle-plugin/libs/react.gradle")
+   ```
+
+5. **If the issue persists**, try adding this to your app's `android/app/build.gradle`:
+   ```gradle
+   android {
+       // ... other config
+       sourceSets {
+           main {
+               java.srcDirs += [
+                   file("../../node_modules/react-native-biometric-login/android/build/generated/source/codegen/java")
+               ]
+           }
+       }
+   }
+   ```
+
+#### iOS Build Issues
+
+For iOS build issues, ensure you have:
+- Xcode 15+ installed
+- Proper pod installation: `cd ios && pod install`
+- Correct deployment target (iOS 13.0+)
+
+### Common Issues & Quick Fixes
+
+#### 🚨 "Library works in example but fails when installed via npm"
+
+This is the most common issue with TurboModules. **Quick fix in 3 steps:**
+
+1. **Add React Native Gradle Plugin** to your `android/build.gradle`
+2. **Enable autolinking** in your `android/app/build.gradle`
+3. **Force codegen regeneration** with `./gradlew generateCodegenArtifactsFromSchema`
+
+📖 **See [QUICK_FIX.md](./QUICK_FIX.md) for the complete solution**
+
+#### Other Common Errors
+
+- **"Unresolved reference 'NativeBiometricLoginSpec'"** → Missing codegen, run the quick fix above
+- **"Cannot specify link libraries for target 'react_codegen_BiometricLoginSpec'"** → CMake build failure, run the quick fix above
+- **CMake build failures** → Usually codegen issues, run the quick fix above
+
+### Getting Help
+
+If you're still experiencing issues:
+1. Check the [example app](./example/src/App.tsx) for working implementation
+2. Ensure your React Native version is compatible (0.81.0+)
+3. Open an issue with your error logs and environment details
 
 ## Development
 

@@ -22,6 +22,12 @@ export default defineConfig([
       'react/react-in-jsx-scope': 'off',
       'prettier/prettier': 'error',
     },
+    languageOptions: {
+      parserOptions: {
+        project: './tsconfig.json',
+        tsconfigRootDir: __dirname,
+      },
+    },
   },
   {
     ignores: ['node_modules/', 'lib/'],

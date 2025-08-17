@@ -9,9 +9,9 @@ import androidx.fragment.app.FragmentActivity
 import com.facebook.react.bridge.*
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.modules.core.DeviceEventManagerModule
+import com.biometriclogin.NativeBiometricLoginSpec
 import java.util.concurrent.Executor
 
-@ReactModule(name = BiometricLoginModule.NAME)
 class BiometricLoginModule(reactContext: ReactApplicationContext) :
     NativeBiometricLoginSpec(reactContext) {
 
@@ -19,9 +19,7 @@ class BiometricLoginModule(reactContext: ReactApplicationContext) :
     private val biometricManager = BiometricManager.from(reactContext)
     private val executor = ContextCompat.getMainExecutor(reactContext)
 
-    override fun getName(): String {
-        return NAME
-    }
+
 
     override fun BiometricIsAvailable(promise: Promise) {
         try {
@@ -40,7 +38,7 @@ class BiometricLoginModule(reactContext: ReactApplicationContext) :
 
     override fun BasicBiometricAuth(title: String, desc: String, promise: Promise) {
         try {
-            val activity = getCurrentActivity() as? FragmentActivity
+            val activity = currentActivity as? FragmentActivity
             if (activity == null) {
                 promise.reject("ERROR", "Activity not available or not a FragmentActivity")
                 return
@@ -88,7 +86,7 @@ class BiometricLoginModule(reactContext: ReactApplicationContext) :
                 return
             }
 
-            val activity = getCurrentActivity() as? FragmentActivity
+            val activity = currentActivity as? FragmentActivity
             if (activity == null) {
                 promise.reject("ERROR", "Activity not available or not a FragmentActivity")
                 return
