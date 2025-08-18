@@ -2,6 +2,22 @@
 
 A React Native module that enables biometric authentication and securely stores user credentials using native APIs. This library provides a comprehensive solution for implementing biometric login functionality in React Native applications with support for both iOS and Android platforms.
 
+## Table of Contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [iOS Setup](#ios-setup)
+- [Swift Bridging Header Compatibility](#-swift-bridging-header-compatibility)
+- [Android Setup](#android-setup)
+- [API Reference](#api-reference)
+- [Usage](#usage)
+- [Troubleshooting](#troubleshooting)
+- [Development](#development)
+- [Architecture](#architecture)
+- [Contributing](#contributing)
+- [Code of Conduct](#code-of-conduct)
+- [License](#license)
+
 ## Features
 
 - 🔐 **Biometric Authentication**: Support for Touch ID, Face ID, and Android biometric sensors
@@ -24,6 +40,10 @@ yarn add react-native-biometric-login
 ```sh
 npm install react-native-biometric-login
 ```
+
+### 🔄 Upgrading from Older Versions?
+
+If you're upgrading from a version before 2.0.22, see the [Migration Guide](./MIGRATION_GUIDE.md) for important changes related to Swift bridging headers and React Native 0.81.0+ compatibility.
 
 ### ⚠️ Important: Codegen Configuration
 
@@ -55,6 +75,54 @@ cd ios && pod install
 **Note**: The `NSFaceIDUsageDescription` key is required for both Face ID and Touch ID authentication. Even if your app only uses Touch ID, you must include this key with a meaningful description of why your app needs biometric authentication.
 
 **💡 Pro tip**: If you're building the example app and encounter Ruby/bundler issues, you may need to run `bundle install` first to install the required Ruby gems for CocoaPods.
+
+### ⚠️ Swift Bridging Header Compatibility
+
+This library contains Swift code that requires proper framework linkage configuration. If you encounter build errors related to missing `BiometricLogin-Swift.h` files, you need to configure your project to use dynamic frameworks.
+
+#### For Projects Using Static Frameworks (e.g., with Firebase)
+
+**Option 1: Use Dynamic Frameworks (Recommended)**
+Update your `ios/Podfile`:
+
+```ruby
+# Use dynamic frameworks by default for Swift bridging header compatibility
+use_frameworks! :linkage => :dynamic
+
+# Firebase configuration - Firebase will handle its own static linkage internally
+$RNFirebaseAsStaticFramework = true
+```
+
+**Option 2: Selective Dynamic Frameworks**
+If you need to keep static frameworks for other reasons, you can configure only BiometricLogin to use dynamic linkage:
+
+```ruby
+# Keep static frameworks by default
+use_frameworks! :linkage => :static
+
+# Add post-install hook to make BiometricLogin dynamic
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name == 'BiometricLogin'
+      target.build_configurations.each do |config|
+        config.build_settings['MACH_O_TYPE'] = 'mh_dylib'
+        config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+        config.build_settings['DEFINES_MODULE'] = 'YES'
+        config.build_settings['SWIFT_INSTALL_OBJC_HEADER'] = 'YES'
+      end
+    end
+  end
+end
+```
+
+**Clean Installation Steps**
+After making changes to the Podfile:
+
+```bash
+cd ios
+rm -rf Pods Podfile.lock build
+pod install
+```
 
 ### Android Setup
 
@@ -152,6 +220,27 @@ See the [example app](./example/src/App.tsx) for a full implementation demonstra
 
 ### Common Build Issues
 
+#### iOS Build Issues
+
+For iOS build issues, ensure you have:
+- Xcode 15+ installed
+- Proper pod installation: `cd ios && pod install`
+- Correct deployment target (iOS 13.0+)
+
+**Swift Bridging Header Issues**
+If you encounter errors like `"BiometricLogin-Swift.h file not found"`:
+
+1. **Check framework linkage**: Ensure your project uses dynamic frameworks
+2. **Clean and reinstall pods**:
+   ```bash
+   cd ios
+   rm -rf Pods Podfile.lock build
+   pod install
+   ```
+3. **Verify Podfile configuration**: See the [Swift Bridging Header Compatibility](#-swift-bridging-header-compatibility) section above
+
+📖 **For detailed Swift bridging header troubleshooting, see [SWIFT_BRIDGING_HEADER_TROUBLESHOOTING.md](./SWIFT_BRIDGING_HEADER_TROUBLESHOOTING.md)**
+
 #### Android Build Fails with "Unresolved reference 'NativeBiometricLoginSpec'"
 
 This error occurs when the React Native codegen doesn't properly generate the required spec files. Here's how to fix it:
@@ -197,25 +286,6 @@ This error occurs when the React Native codegen doesn't properly generate the re
    }
    ```
 
-#### iOS Build Issues
-
-For iOS build issues, ensure you have:
-- Xcode 15+ installed
-- Proper pod installation: `cd ios && pod install`
-- Correct deployment target (iOS 13.0+)
-
-### Common Issues & Quick Fixes
-
-#### 🚨 "Library works in example but fails when installed via npm"
-
-This is the most common issue with TurboModules. **Quick fix in 3 steps:**
-
-1. **Add React Native Gradle Plugin** to your `android/build.gradle`
-2. **Enable autolinking** in your `android/app/build.gradle`
-3. **Force codegen regeneration** with `./gradlew generateCodegenArtifactsFromSchema`
-
-📖 **See [QUICK_FIX.md](./QUICK_FIX.md) for the complete solution**
-
 #### Other Common Errors
 
 - **"Unresolved reference 'NativeBiometricLoginSpec'"** → Missing codegen, run the quick fix above
@@ -235,9 +305,11 @@ If you're still experiencing issues:
 
 - Node.js 18+
 - Yarn 3.6.1+
-- React Native 0.81.0+
+- React Native 0.81.0+ (required for Swift bridging header compatibility)
 - Xcode 15+ (for iOS development)
 - Android Studio (for Android development)
+
+**Note**: This library requires React Native 0.81.0+ due to Swift bridging header requirements and TurboModule architecture changes.
 
 ### Setup
 

@@ -1,6 +1,6 @@
 {
   "name": "react-native-biometric-login",
-  "version": "2.0.22",
+  "version": "2.0.23",
   "description": "A React-Native module to enable biometric login and securely store a user's credentials using native apis.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
@@ -39,7 +39,7 @@
     "prepare": "yarn bob build --target codegen && bob build",
     "codegen": "react-native codegen",
     "release": "release-it --only-version",
-    "postinstall": "echo 'react-native-biometric-login: If you encounter codegen issues when installing via npm, please check the TROUBLESHOOTING.md file for solutions. The most common issue is missing React Native Gradle Plugin configuration in the consuming app. Make sure your consuming app has the React Native Gradle Plugin properly configured and codegen enabled.'",
+    "postinstall": "echo 'react-native-biometric-login: If you encounter codegen issues when installing via npm, please check the TROUBLESHOOTING.md file for solutions. The most common issue is missing React Native Gradle Plugin configuration in the consuming app. Make sure your consuming app has the React Native Gradle Plugin properly configured and codegen enabled. For Swift bridging header issues on iOS, see the Swift Bridging Header Compatibility section in README.md or SWIFT_BRIDGING_HEADER_TROUBLESHOOTING.md for solutions.'",
     "check-setup": "node scripts/check-setup.js"
   },
   "keywords": [
