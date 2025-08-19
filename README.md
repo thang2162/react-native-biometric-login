@@ -7,7 +7,7 @@ A React Native module that enables biometric authentication and securely stores 
 - [Features](#features)
 - [Installation](#installation)
 - [iOS Setup](#ios-setup)
-- [Swift Bridging Header Compatibility](#-swift-bridging-header-compatibility)
+- [Swift Bridging Header Compatibility](#swift-bridging-header-compatibility)
 - [Android Setup](#android-setup)
 - [API Reference](#api-reference)
 - [Usage](#usage)
@@ -111,6 +111,68 @@ post_install do |installer|
         config.build_settings['SWIFT_INSTALL_OBJC_HEADER'] = 'YES'
       end
     end
+  end
+end
+```
+
+**Option 3: Complete Podfile Example**
+Here's a complete Podfile example that demonstrates proper configuration for Swift bridging header compatibility in a project that implements both React Native Firebase and this biometric login package:
+
+```ruby
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
+
+platform :ios, min_ios_version_supported
+prepare_react_native_project!
+
+# Specify the Xcode project to use
+project 'bioTest.xcodeproj'
+
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
+
+# Use dynamic frameworks by default for Swift bridging header compatibility
+use_frameworks! :linkage => :dynamic
+
+# Firebase configuration - Firebase will handle its own static linkage internally
+$RNFirebaseAsStaticFramework = true
+
+target 'bioTest' do
+  config = use_native_modules!
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  # Fix for Swift pod integration issue with FirebaseCoreInternal and GoogleUtilities
+  pod 'GoogleUtilities', :modular_headers => true
+
+  post_install do |installer|
+    # Ensure Firebase modules are properly configured
+    installer.pods_project.targets.each do |target|
+      if target.name.include?('Firebase')
+        target.build_configurations.each do |config|
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+          config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+        end
+      end
+    end
+    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false,
+      # :ccache_enabled => true
+    )
   end
 end
 ```
